@@ -37,14 +37,19 @@
     /* ───────────────────────── HERO ───────────────────────── */
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: 100vh;        /* fallback */
+      min-height: 100svh;       /* small viewport (mobile con barra) */
+      min-height: 100dvh;       /* dynamic viewport */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 60px 24px;
+      padding: 60px 20px 140px; /* extra bottom para que el CTA respire */
       overflow: hidden;
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 40px 18px 130px; }
     }
     .hero-bg {
       position: absolute;
@@ -74,32 +79,32 @@
     .hero-eyebrow {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 8px;
+      font-size: clamp(11px, 2.8vw, 14px);
+      letter-spacing: clamp(5px, 1.5vw, 8px);
       text-transform: uppercase;
       color: #fff;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
 
     .hero-script {
       font-family: 'Pinyon Script', cursive;
       font-weight: 400;
-      font-size: clamp(72px, 16vw, 130px);
+      font-size: clamp(64px, 15vw, 130px);
       line-height: 0.95;
       color: #fff;
       text-shadow: 0 4px 24px rgba(0,0,0,0.45);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       letter-spacing: 1px;
     }
 
     .hero-date {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
-      font-size: 18px;
-      letter-spacing: 4px;
+      font-size: clamp(15px, 3.6vw, 18px);
+      letter-spacing: clamp(2px, 1vw, 4px);
       color: #fff;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
       text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
 
@@ -107,7 +112,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-weight: 400;
-      font-size: 16px;
+      font-size: clamp(14px, 3.4vw, 16px);
       line-height: 1.6;
       color: rgba(255,255,255,0.92);
       max-width: 420px;
@@ -117,29 +122,63 @@
 
     .hero-scroll {
       position: absolute;
-      bottom: 32px;
+      bottom: 40px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 1;
-      color: rgba(255,255,255,0.7);
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: rgba(255, 255, 255, 0.96);
+      color: var(--ink);
       font-family: 'Cormorant Garamond', serif;
-      font-size: 12px;
-      letter-spacing: 3px;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 4px;
       text-transform: uppercase;
       text-decoration: none;
-      transition: color 0.2s;
+      border-radius: 100px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255,255,255,0.1);
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+      animation: pulse-cta 2.6s ease-in-out infinite;
+      white-space: nowrap;
     }
-    .hero-scroll:hover { color: #fff; }
     .hero-scroll::after {
       content: '↓';
-      display: block;
-      margin-top: 6px;
       font-size: 16px;
-      animation: bounce 2s infinite;
+      line-height: 1;
+      transition: transform 0.25s ease;
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(6px); }
+    .hero-scroll:hover {
+      background: #fff;
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255,255,255,0.2);
+      animation-play-state: paused;
+    }
+    .hero-scroll:hover::after { transform: translateY(3px); }
+
+    @keyframes pulse-cta {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(255,255,255,0.4);
+      }
+      50% {
+        transform: translateX(-50%) translateY(-6px);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4), 0 0 0 8px rgba(255,255,255,0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-scroll {
+        bottom: 28px;
+        padding: 14px 24px;
+        font-size: 13px;
+        letter-spacing: 3px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-scroll { animation: none; }
     }
 
     /* ───────────────────────── FORM SECTION ───────────────────────── */
@@ -166,8 +205,8 @@
     .form-title {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 600;
-      font-size: 28px;
-      letter-spacing: 4px;
+      font-size: clamp(22px, 5.4vw, 28px);
+      letter-spacing: clamp(3px, 1vw, 4px);
       text-transform: uppercase;
       color: var(--ink);
       text-align: center;
@@ -177,7 +216,7 @@
     .form-intro {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 16px;
+      font-size: clamp(15px, 3.6vw, 16px);
       line-height: 1.7;
       color: var(--ink-soft);
       text-align: center;
@@ -246,9 +285,9 @@
       border: none;
       border-bottom: 1px solid var(--border);
       border-radius: 0;
-      padding: 8px 0;
+      padding: 10px 0;
       font-family: 'Lato', sans-serif;
-      font-size: 15px;
+      font-size: 16px;        /* 16px+ evita auto-zoom en iOS */
       color: var(--ink);
       background: transparent;
       outline: none;
@@ -294,19 +333,21 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
+      padding: 6px 4px;          /* área tap más cómoda en mobile */
       cursor: pointer;
       font-family: 'Lato', sans-serif;
-      font-size: 15px;
+      font-size: 16px;
       color: var(--ink);
       transition: color 0.15s;
+      -webkit-tap-highlight-color: transparent;
     }
     .radio-label:hover { color: var(--accent); }
 
     .radio-label input[type="radio"] {
       appearance: none;
       -webkit-appearance: none;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       border: 1.5px solid var(--border);
       border-radius: 50%;
       flex-shrink: 0;
@@ -322,7 +363,7 @@
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 9px; height: 9px;
+      width: 10px; height: 10px;
       border-radius: 50%;
       background: var(--accent);
     }
@@ -348,9 +389,10 @@
 
     /* ── Submit ── */
     .btn-submit {
-      align-self: center;
+      align-self: stretch;          /* full width en mobile */
       margin-top: 12px;
-      padding: 14px 48px;
+      padding: 16px 48px;
+      min-height: 48px;             /* touch target mínimo */
       background: var(--accent);
       color: #fff;
       border: none;
@@ -362,6 +404,9 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
+    }
+    @media (min-width: 520px) {
+      .btn-submit { align-self: center; padding: 14px 56px; }
     }
     .btn-submit:hover { background: var(--accent-dark); }
     .btn-submit:active { transform: scale(0.99); }
@@ -470,7 +515,7 @@
       <p class="hero-date">03.10.2026 &nbsp;|&nbsp; 17:00 HS</p>
       <p class="hero-quote">"Adrenalina y corazón al rumbo,<br>el amor para entregarlo todo"</p>
     </div>
-    <a href="#rsvp" class="hero-scroll">Confirmar</a>
+    <a href="#rsvp" class="hero-scroll">Confirmá tu asistencia</a>
   </header>
 
   <!-- ─────────── FORM ─────────── -->
