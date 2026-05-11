@@ -3,191 +3,311 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Confirmación de Asistencia — Camila &amp; Pedro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amsterdam+One&family=Bee+Serif&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <title>Confirmación de Asistencia — Camila y Pedro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Pinyon+Script&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --cream:        #f3e9d9;
+      --cream-soft:   #faf3e6;
+      --paper:        #fffaf0;
+      --ink:          #2a1d10;
+      --ink-soft:     #5c4632;
+      --muted:        #8b7459;
+      --accent:       #8a4a1f;
+      --accent-dark:  #5e3115;
+      --border:       #d9c7ad;
+      --border-soft:  #e8dcc6;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       min-height: 100vh;
       font-family: 'Lato', sans-serif;
-      background: #2c1f14;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
+    /* ───────────────────────── HERO ───────────────────────── */
     .hero {
-      position: fixed;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
       inset: 0;
       background-image: url('foto-fondo.jpg');
       background-size: cover;
       background-position: center;
+      background-repeat: no-repeat;
+      /* Fallback gradient si la foto no carga */
+      background-color: #3a2715;
       z-index: 0;
     }
-    .hero::after {
+    .hero-bg::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(20, 12, 6, 0.58);
+      background:
+        radial-gradient(ellipse at center, rgba(0,0,0,0.25) 0%, rgba(20,12,6,0.55) 70%, rgba(20,12,6,0.75) 100%);
     }
-
-    .page {
+    .hero-content {
       position: relative;
       z-index: 1;
-      width: 100%;
-      max-width: 560px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
+      color: #fff;
+      max-width: 520px;
     }
 
-    /* ── Header ── */
-    .header {
-      text-align: center;
-      color: #fff;
-    }
-    .header .eyebrow {
-      font-family: 'Bee Serif', serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 5px;
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 8px;
       text-transform: uppercase;
       color: #fff;
-      margin-bottom: 6px;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
-    .header h1 {
-      font-family: 'Amsterdam One', cursive;
-      font-size: clamp(54px, 12vw, 82px);
+
+    .hero-script {
+      font-family: 'Pinyon Script', cursive;
       font-weight: 400;
-      line-height: 1.05;
+      font-size: clamp(72px, 16vw, 130px);
+      line-height: 0.95;
       color: #fff;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+      text-shadow: 0 4px 24px rgba(0,0,0,0.45);
+      margin-bottom: 22px;
+      letter-spacing: 1px;
     }
-    .header .date {
-      font-family: 'Bee Serif', serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2px;
+
+    .hero-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 4px;
       color: #fff;
-      margin-top: 10px;
+      margin-bottom: 28px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
-    .header .tagline {
-      font-family: 'Bee Serif', serif;
+
+    .hero-quote {
+      font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 13px;
-      color: rgba(255,255,255,0.75);
-      margin-top: 14px;
+      font-weight: 400;
+      font-size: 16px;
       line-height: 1.6;
-      max-width: 400px;
+      color: rgba(255,255,255,0.92);
+      max-width: 420px;
+      margin: 0 auto;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
     }
 
-    /* ── Card ── */
-    .card {
-      background: rgba(255, 252, 247, 0.97);
-      border-radius: 4px;
-      padding: 40px 40px 44px;
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .hero-scroll:hover { color: #fff; }
+    .hero-scroll::after {
+      content: '↓';
+      display: block;
+      margin-top: 6px;
+      font-size: 16px;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(6px); }
+    }
+
+    /* ───────────────────────── FORM SECTION ───────────────────────── */
+    .form-section {
+      background: var(--cream);
+      padding: 80px 24px 60px;
+      display: flex;
+      justify-content: center;
+    }
+    .form-wrapper {
       width: 100%;
-      box-shadow: 0 8px 48px rgba(0,0,0,0.35);
+      max-width: 540px;
+      background: var(--paper);
+      padding: 56px 48px;
+      border-radius: 2px;
+      box-shadow: 0 4px 32px rgba(60, 40, 20, 0.08);
+      border: 1px solid var(--border-soft);
     }
-    @media (max-width: 480px) {
-      .card { padding: 28px 20px 32px; }
-    }
-
-    .card-title {
-      font-family: 'Bee Serif', serif;
-      font-size: 20px;
-      color: #3b2412;
-      text-align: center;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-    }
-    .card-subtitle {
-      font-family: 'Lato', sans-serif;
-      font-size: 13.5px;
-      color: #7a6050;
-      text-align: center;
-      line-height: 1.65;
-      margin-bottom: 32px;
+    @media (max-width: 520px) {
+      .form-section { padding: 50px 16px 40px; }
+      .form-wrapper { padding: 40px 24px; }
     }
 
-    /* ── Form elements ── */
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 28px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .form-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+      text-align: center;
+      max-width: 380px;
+      margin: 0 auto 8px;
+    }
+    .form-intro strong {
+      font-weight: 600;
+      font-style: normal;
+      color: var(--ink);
+    }
+
+    /* ───────────────────────── ORNAMENT ───────────────────────── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 32px auto;
+      color: var(--muted);
+    }
+    .ornament .line {
+      width: 60px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.5;
+    }
+    .ornament .dot {
+      font-size: 10px;
+      letter-spacing: 4px;
+      opacity: 0.7;
+    }
+    .ornament.light { color: rgba(255,255,255,0.7); }
+
+    /* ───────────────────────── FORM FIELDS ───────────────────────── */
+    form { display: flex; flex-direction: column; gap: 22px; }
+
     .row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 20px;
+      gap: 16px;
     }
-    @media (max-width: 420px) {
+    @media (max-width: 440px) {
       .row { grid-template-columns: 1fr; }
     }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .field.full { grid-column: 1 / -1; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
 
-    label {
+    .label {
+      font-family: 'Lato', sans-serif;
       font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 1.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: #5c3d22;
+      color: var(--muted);
+    }
+    .label .opt {
+      font-weight: 400;
+      letter-spacing: 1px;
+      opacity: 0.7;
+      margin-left: 4px;
     }
 
     input[type="text"],
     textarea {
-      border: 1px solid #d6c4ae;
-      border-radius: 2px;
-      padding: 10px 12px;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      padding: 8px 0;
       font-family: 'Lato', sans-serif;
-      font-size: 14px;
-      color: #2c1f14;
-      background: #fdfaf6;
+      font-size: 15px;
+      color: var(--ink);
+      background: transparent;
       outline: none;
       transition: border-color 0.2s;
       width: 100%;
     }
     input[type="text"]:focus,
     textarea:focus {
-      border-color: #8b5e3c;
+      border-bottom-color: var(--accent);
     }
-    textarea { resize: vertical; min-height: 80px; }
+    input[type="text"]::placeholder,
+    textarea::placeholder {
+      color: var(--muted);
+      opacity: 0.55;
+      font-style: italic;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 12px 14px;
+    }
+    textarea:focus {
+      border-color: var(--accent);
+    }
 
+    /* ── Radios ── */
     .radio-group {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 2px;
+      gap: 12px;
+      margin-top: 4px;
     }
     .radio-group.inline {
       flex-direction: row;
       flex-wrap: wrap;
-      gap: 10px 20px;
+      justify-content: center;
+      gap: 16px 32px;
     }
 
     .radio-label {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
       cursor: pointer;
-      font-size: 14px;
-      color: #3b2412;
       font-family: 'Lato', sans-serif;
-      letter-spacing: 0;
-      text-transform: none;
-      font-weight: 400;
+      font-size: 15px;
+      color: var(--ink);
+      transition: color 0.15s;
     }
+    .radio-label:hover { color: var(--accent); }
+
     .radio-label input[type="radio"] {
       appearance: none;
       -webkit-appearance: none;
-      width: 17px;
-      height: 17px;
-      border: 1.5px solid #b89270;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--border);
       border-radius: 50%;
       flex-shrink: 0;
       cursor: pointer;
@@ -195,228 +315,290 @@
       transition: border-color 0.2s;
     }
     .radio-label input[type="radio"]:checked {
-      border-color: #7a4219;
+      border-color: var(--accent);
     }
     .radio-label input[type="radio"]:checked::after {
       content: '';
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 8px; height: 8px;
+      width: 9px; height: 9px;
       border-radius: 50%;
-      background: #7a4219;
+      background: var(--accent);
     }
 
     .section-label {
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 1.5px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      color: #5c3d22;
-      margin-bottom: 10px;
+      color: var(--ink-soft);
+      text-align: center;
       display: block;
+      margin-bottom: 4px;
     }
 
-    .menu-section {
-      margin-top: 4px;
-    }
+    .menu-section { display: none; }
 
     #otro-text {
-      margin-top: 8px;
-      display: none;
-    }
-
-    .divider {
-      border: none;
-      border-top: 1px solid #e8d8c4;
-      margin: 24px 0;
+      margin-top: 6px;
+      max-width: 100%;
     }
 
     /* ── Submit ── */
     .btn-submit {
-      width: 100%;
-      padding: 14px;
-      background: #7a4219;
+      align-self: center;
+      margin-top: 12px;
+      padding: 14px 48px;
+      background: var(--accent);
       color: #fff;
       border: none;
-      border-radius: 2px;
-      font-family: 'Bee Serif', serif;
-      font-size: 15px;
-      letter-spacing: 1.5px;
+      border-radius: 1px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
-      margin-top: 8px;
     }
-    .btn-submit:hover { background: #5c3010; }
+    .btn-submit:hover { background: var(--accent-dark); }
     .btn-submit:active { transform: scale(0.99); }
-    .btn-submit:disabled { background: #b89270; cursor: not-allowed; }
+    .btn-submit:disabled { background: var(--muted); cursor: not-allowed; }
 
-    /* ── Error messages ── */
+    /* ── Errors ── */
     .error-msg {
+      font-family: 'Lato', sans-serif;
       font-size: 12px;
-      color: #c0392b;
+      color: #b03a2e;
       margin-top: 4px;
       display: none;
+      text-align: left;
     }
     .field.has-error input,
     .field.has-error textarea {
-      border-color: #c0392b;
+      border-color: #b03a2e;
     }
     .field.has-error .error-msg { display: block; }
+    #f-asistencia.has-error #err-asistencia,
+    #f-menu.has-error #err-menu { display: block; text-align: center; }
 
-    /* ── Success state ── */
-    .success-view {
-      display: none;
-      text-align: center;
-      padding: 8px 0;
+    /* ───────────────────────── SUCCESS ───────────────────────── */
+    .success-view { display: none; text-align: center; padding: 8px 0; }
+    .success-view .heart {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 60px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 12px;
     }
-    .success-view .check {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
-    .success-view h2 {
-      font-family: 'Amsterdam One', cursive;
-      font-size: 34px;
-      color: #3b2412;
-      margin-bottom: 10px;
+    .success-view h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 22px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 14px;
     }
     .success-view p {
-      font-size: 14px;
-      color: #7a6050;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--ink-soft);
       line-height: 1.7;
+      max-width: 380px;
+      margin: 0 auto;
     }
 
-    /* ── Footer ── */
-    .footer {
+    /* ───────────────────────── VENUES ───────────────────────── */
+    .venues {
+      background: var(--cream);
+      padding: 20px 24px 60px;
       text-align: center;
-      color: rgba(255,255,255,0.55);
-      font-size: 12px;
-      line-height: 1.8;
-      padding-bottom: 8px;
     }
-    .footer strong {
-      font-family: 'Bee Serif', serif;
+    .venue {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .venue-label {
+      font-family: 'Cormorant Garamond', serif;
       font-weight: 700;
-      letter-spacing: 2px;
+      font-size: 18px;
+      letter-spacing: 6px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.95);
-      font-size: 11px;
-      display: block;
-      margin-top: 14px;
-      margin-bottom: 2px;
+      color: var(--ink);
+      margin-bottom: 10px;
     }
-    .footer strong:first-child { margin-top: 0; }
+    .venue-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .venue-addr {
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: var(--ink-soft);
+      letter-spacing: 0.5px;
+    }
+
+    /* ───────────────────────── SIGNATURE ───────────────────────── */
+    .signature {
+      background: var(--cream);
+      padding: 10px 24px 60px;
+      text-align: center;
+    }
+    .signature .sig {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(48px, 9vw, 70px);
+      color: var(--ink);
+      line-height: 1;
+    }
   </style>
 </head>
 <body>
 
-<div class="hero"></div>
+  <!-- ─────────── HERO ─────────── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Nuestra boda</p>
+      <h1 class="hero-script">Camila y Pedro</h1>
+      <p class="hero-date">03.10.2026 &nbsp;|&nbsp; 17:00 HS</p>
+      <p class="hero-quote">"Adrenalina y corazón al rumbo,<br>el amor para entregarlo todo"</p>
+    </div>
+    <a href="#rsvp" class="hero-scroll">Confirmar</a>
+  </header>
 
-<div class="page">
+  <!-- ─────────── FORM ─────────── -->
+  <section class="form-section" id="rsvp">
+    <div class="form-wrapper">
 
-  <!-- Header -->
-  <div class="header">
-    <p class="eyebrow">Nuestra boda</p>
-    <h1>Camila y Pedro</h1>
-    <p class="date">03.10.2026 &nbsp;|&nbsp; 17:00 HS</p>
-    <p class="tagline">"Adrenalina y corazón al rumbo,<br>el amor para entregarlo todo"</p>
-  </div>
+      <h2 class="form-title">Confirmá tu asistencia</h2>
+      <p class="form-intro">
+        Imaginamos este día rodeados de quienes queremos y nos haría mucha ilusión que estés ahí.
+      </p>
 
-  <!-- Card -->
-  <div class="card">
-
-    <h2 class="card-title">Confirmá tu asistencia</h2>
-    <p class="card-subtitle">
-      Imaginamos este día rodeados de quienes queremos y nos haría mucha ilusión que estés ahí.<br>
-      Por favor, confirmá tu asistencia antes del <strong>01/09/2026</strong>.
-    </p>
-
-    <!-- Form -->
-    <form id="rsvp-form" novalidate>
-
-      <div class="row">
-        <div class="field" id="f-nombre">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="given-name" />
-          <span class="error-msg">Ingresá tu nombre</span>
-        </div>
-        <div class="field" id="f-apellido">
-          <label for="apellido">Apellido</label>
-          <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" autocomplete="family-name" />
-          <span class="error-msg">Ingresá tu apellido</span>
-        </div>
+      <div class="ornament">
+        <span class="line"></span>
+        <span class="dot">✦</span>
+        <span class="line"></span>
       </div>
 
-      <div class="field full" id="f-asistencia" style="margin-bottom:20px;">
-        <span class="section-label">¿Vas a estar?</span>
-        <div class="radio-group inline">
-          <label class="radio-label">
-            <input type="radio" name="asistencia" value="Si" /> Sí, voy a estar
-          </label>
-          <label class="radio-label">
-            <input type="radio" name="asistencia" value="No" /> No voy a poder ir
-          </label>
-        </div>
-        <span class="error-msg" id="err-asistencia">Por favor indicá si vas a asistir</span>
-      </div>
+      <form id="rsvp-form" novalidate>
 
-      <div id="menu-section" class="menu-section" style="display:none;">
-        <hr class="divider" />
-        <div class="field full" id="f-menu">
-          <span class="section-label">Menú / Dietas especiales</span>
-          <div class="radio-group">
+        <div class="row">
+          <div class="field" id="f-nombre">
+            <label class="label" for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="given-name" />
+            <span class="error-msg">Ingresá tu nombre</span>
+          </div>
+          <div class="field" id="f-apellido">
+            <label class="label" for="apellido">Apellido</label>
+            <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" autocomplete="family-name" />
+            <span class="error-msg">Ingresá tu apellido</span>
+          </div>
+        </div>
+
+        <div class="field" id="f-asistencia">
+          <span class="section-label">¿Vas a estar?</span>
+          <div class="radio-group inline">
             <label class="radio-label">
-              <input type="radio" name="menu" value="Sin restricciones" /> Sin restricciones
+              <input type="radio" name="asistencia" value="Si" /> Sí, voy a estar
             </label>
             <label class="radio-label">
-              <input type="radio" name="menu" value="Celíaco" /> Celíaco / Sin TACC
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="menu" value="Vegetariano" /> Vegetariano
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="menu" value="Vegano" /> Vegano
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="menu" value="Otro" /> Otro
+              <input type="radio" name="asistencia" value="No" /> No voy a poder ir
             </label>
           </div>
-          <input type="text" id="otro-text" name="menu-otro" placeholder="Especificá tu dieta o alergia" />
-          <span class="error-msg" id="err-menu">Por favor seleccioná una opción de menú</span>
+          <span class="error-msg" id="err-asistencia">Indicá si vas a asistir</span>
         </div>
+
+        <div id="menu-section" class="menu-section">
+          <div class="ornament">
+            <span class="line"></span>
+            <span class="dot">✦</span>
+            <span class="line"></span>
+          </div>
+          <div class="field" id="f-menu">
+            <span class="section-label">Menú</span>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="menu" value="Sin restricciones" /> Sin restricciones
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="menu" value="Celíaco" /> Celíaco / Sin TACC
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="menu" value="Vegetariano" /> Vegetariano
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="menu" value="Vegano" /> Vegano
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="menu" value="Otro" /> Otro
+              </label>
+            </div>
+            <input type="text" id="otro-text" name="menu-otro" placeholder="Especificá tu dieta o alergia" />
+            <span class="error-msg" id="err-menu">Seleccioná una opción de menú</span>
+          </div>
+        </div>
+
+        <div class="ornament">
+          <span class="line"></span>
+          <span class="dot">✦</span>
+          <span class="line"></span>
+        </div>
+
+        <div class="field">
+          <label class="label" for="nota">
+            Algo que quieras que tengamos en cuenta
+            <span class="opt">(opcional)</span>
+          </label>
+          <textarea id="nota" name="nota" placeholder="Alergias adicionales, mensaje especial…"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-submit">Confirmar</button>
+
+      </form>
+
+      <!-- Success view -->
+      <div class="success-view" id="success-view">
+        <div class="heart">~</div>
+        <h3 id="success-heading">¡Gracias!</h3>
+        <p id="success-msg">Tu respuesta fue registrada.</p>
       </div>
 
-      <hr class="divider" />
+    </div>
+  </section>
 
-      <div class="field full" style="margin-bottom:24px;">
-        <label for="nota">Algo que quieras que tengamos en cuenta <span style="opacity:.6;font-size:10px;">(opcional)</span></label>
-        <textarea id="nota" name="nota" placeholder="Alergias adicionales, mensaje especial…"></textarea>
-      </div>
-
-      <button type="submit" class="btn-submit" id="btn-submit">Confirmar asistencia</button>
-
-    </form>
-
-    <!-- Success -->
-    <div class="success-view" id="success-view">
-      <div class="check">🤍</div>
-      <h2 id="success-heading">¡Gracias!</h2>
-      <p id="success-msg">Tu respuesta fue registrada. ¡Nos vemos pronto!</p>
+  <!-- ─────────── VENUES ─────────── -->
+  <section class="venues">
+    <div class="venue">
+      <p class="venue-label">Celebración</p>
+      <p class="venue-time">17:00 HS · Parroquia San Gabriel</p>
+      <p class="venue-addr">Gaspar Campos 759, Vicente López</p>
     </div>
 
-  </div>
+    <div class="ornament">
+      <span class="line"></span>
+      <span class="dot">✦</span>
+      <span class="line"></span>
+    </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <strong>Celebración</strong>
-    17:00 hs · Parroquia San Gabriel<br>
-    Gaspar Campos 759, Vicente López
-    <strong>Fiesta</strong>
-    19:00 hs · Yacht Club Olivos<br>
-    Juan Bautista Alberdi 415, Olivos
-  </div>
+    <div class="venue">
+      <p class="venue-label">Fiesta</p>
+      <p class="venue-time">19:00 HS · Yacht Club Olivos</p>
+      <p class="venue-addr">Juan Bautista Alberdi 415, Olivos</p>
+    </div>
+  </section>
 
-</div>
+  <!-- ─────────── SIGNATURE ─────────── -->
+  <footer class="signature">
+    <p class="sig">Camila y Pedro</p>
+  </footer>
 
 <script>
   // ── Reemplazá esta URL con la de tu Web App de Google Apps Script ──
@@ -428,7 +610,9 @@
   const btnSubmit = document.getElementById('btn-submit');
   const successView = document.getElementById('success-view');
 
-  // Show/hide menu section based on attendance
+  otroText.style.display = 'none';
+
+  // Show/hide menu based on attendance
   document.querySelectorAll('input[name="asistencia"]').forEach(radio => {
     radio.addEventListener('change', () => {
       const attending = radio.value === 'Si';
@@ -456,24 +640,21 @@
 
   function validate() {
     let valid = true;
-
-    const nombre = document.getElementById('nombre').value.trim();
-    const apellido = document.getElementById('apellido').value.trim();
+    const nombre    = document.getElementById('nombre').value.trim();
+    const apellido  = document.getElementById('apellido').value.trim();
     const asistencia = document.querySelector('input[name="asistencia"]:checked');
-    const menu = document.querySelector('input[name="menu"]:checked');
+    const menu      = document.querySelector('input[name="menu"]:checked');
     const attending = asistencia?.value === 'Si';
 
     setFieldError('f-nombre', !nombre);
     setFieldError('f-apellido', !apellido);
-    document.getElementById('err-asistencia').style.display = asistencia ? 'none' : 'block';
+    setFieldError('f-asistencia', !asistencia);
 
     if (!nombre || !apellido || !asistencia) valid = false;
 
     if (attending) {
-      const menuMissing = !menu;
-      setFieldError('f-menu', menuMissing);
-      document.getElementById('err-menu').style.display = menuMissing ? 'block' : 'none';
-      if (menuMissing) valid = false;
+      setFieldError('f-menu', !menu);
+      if (!menu) valid = false;
     }
 
     return valid;
@@ -493,11 +674,11 @@
     }
 
     const data = {
-      nombre: document.getElementById('nombre').value.trim(),
-      apellido: document.getElementById('apellido').value.trim(),
+      nombre:    document.getElementById('nombre').value.trim(),
+      apellido:  document.getElementById('apellido').value.trim(),
       asistencia,
-      menu: menuVal,
-      nota: document.getElementById('nota').value.trim(),
+      menu:      menuVal,
+      nota:      document.getElementById('nota').value.trim(),
     };
 
     btnSubmit.disabled = true;
@@ -527,8 +708,8 @@
       }
     } catch (err) {
       btnSubmit.disabled = false;
-      btnSubmit.textContent = 'Confirmar asistencia';
-      alert('Hubo un error al enviar. Por favor intentá de nuevo o escribinos directamente.');
+      btnSubmit.textContent = 'Confirmar';
+      alert('Hubo un error al enviar. Por favor intentá de nuevo.');
     }
   });
 </script>
