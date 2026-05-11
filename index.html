@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmación de Asistencia — Camila &amp; Pedro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Lato', sans-serif;
+      background: #2c1f14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .hero {
+      position: fixed;
+      inset: 0;
+      background-image: url('foto-fondo.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 12, 6, 0.58);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      color: #fff;
+    }
+    .header .eyebrow {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #d4bfa0;
+      margin-bottom: 10px;
+    }
+    .header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(48px, 10vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      color: #fff;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    }
+    .header .date {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: #d4bfa0;
+      margin-top: 10px;
+    }
+    .header .tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 14px;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255, 252, 247, 0.97);
+      border-radius: 4px;
+      padding: 40px 40px 44px;
+      width: 100%;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.35);
+    }
+    @media (max-width: 480px) {
+      .card { padding: 28px 20px 32px; }
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: #3b2412;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    .card-subtitle {
+      font-family: 'Lato', sans-serif;
+      font-size: 13.5px;
+      color: #7a6050;
+      text-align: center;
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+
+    /* ── Form elements ── */
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 420px) {
+      .row { grid-template-columns: 1fr; }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #5c3d22;
+    }
+
+    input[type="text"],
+    textarea {
+      border: 1px solid #d6c4ae;
+      border-radius: 2px;
+      padding: 10px 12px;
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      color: #2c1f14;
+      background: #fdfaf6;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: #8b5e3c;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 2px;
+    }
+    .radio-group.inline {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #3b2412;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0;
+      text-transform: none;
+      font-weight: 400;
+    }
+    .radio-label input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 17px;
+      height: 17px;
+      border: 1.5px solid #b89270;
+      border-radius: 50%;
+      flex-shrink: 0;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .radio-label input[type="radio"]:checked {
+      border-color: #7a4219;
+    }
+    .radio-label input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #7a4219;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #5c3d22;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .menu-section {
+      margin-top: 4px;
+    }
+
+    #otro-text {
+      margin-top: 8px;
+      display: none;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid #e8d8c4;
+      margin: 24px 0;
+    }
+
+    /* ── Submit ── */
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: #7a4219;
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+    .btn-submit:hover { background: #5c3010; }
+    .btn-submit:active { transform: scale(0.99); }
+    .btn-submit:disabled { background: #b89270; cursor: not-allowed; }
+
+    /* ── Error messages ── */
+    .error-msg {
+      font-size: 12px;
+      color: #c0392b;
+      margin-top: 4px;
+      display: none;
+    }
+    .field.has-error input,
+    .field.has-error textarea {
+      border-color: #c0392b;
+    }
+    .field.has-error .error-msg { display: block; }
+
+    /* ── Success state ── */
+    .success-view {
+      display: none;
+      text-align: center;
+      padding: 8px 0;
+    }
+    .success-view .check {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+    .success-view h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 34px;
+      color: #3b2412;
+      margin-bottom: 10px;
+    }
+    .success-view p {
+      font-size: 14px;
+      color: #7a6050;
+      line-height: 1.7;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      line-height: 1.8;
+      padding-bottom: 8px;
+    }
+    .footer strong {
+      color: rgba(255,255,255,0.8);
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero"></div>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <p class="eyebrow">Nos casamos</p>
+    <h1>Camila &amp; Pedro</h1>
+    <p class="date">03 · 10 · 2026</p>
+    <p class="tagline">Adrenalina y corazón al rumbo,<br>el amor para entregarlo todo</p>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+
+    <h2 class="card-title">Confirmá tu asistencia</h2>
+    <p class="card-subtitle">
+      Imaginamos este día rodeados de quienes queremos y nos haría mucha ilusión que estés ahí.<br>
+      Por favor, confirmá tu asistencia antes del <strong>01/09/2026</strong>.
+    </p>
+
+    <!-- Form -->
+    <form id="rsvp-form" novalidate>
+
+      <div class="row">
+        <div class="field" id="f-nombre">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="given-name" />
+          <span class="error-msg">Ingresá tu nombre</span>
+        </div>
+        <div class="field" id="f-apellido">
+          <label for="apellido">Apellido</label>
+          <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" autocomplete="family-name" />
+          <span class="error-msg">Ingresá tu apellido</span>
+        </div>
+      </div>
+
+      <div class="field full" id="f-asistencia" style="margin-bottom:20px;">
+        <span class="section-label">¿Vas a estar?</span>
+        <div class="radio-group inline">
+          <label class="radio-label">
+            <input type="radio" name="asistencia" value="Si" /> Sí, voy a estar
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="asistencia" value="No" /> No voy a poder ir
+          </label>
+        </div>
+        <span class="error-msg" id="err-asistencia">Por favor indicá si vas a asistir</span>
+      </div>
+
+      <div id="menu-section" class="menu-section" style="display:none;">
+        <hr class="divider" />
+        <div class="field full" id="f-menu">
+          <span class="section-label">Menú / Dietas especiales</span>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="menu" value="Sin restricciones" /> Sin restricciones
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="menu" value="Celíaco" /> Celíaco / Sin TACC
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="menu" value="Vegetariano" /> Vegetariano
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="menu" value="Vegano" /> Vegano
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="menu" value="Otro" /> Otro
+            </label>
+          </div>
+          <input type="text" id="otro-text" name="menu-otro" placeholder="Especificá tu dieta o alergia" />
+          <span class="error-msg" id="err-menu">Por favor seleccioná una opción de menú</span>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="field full" style="margin-bottom:24px;">
+        <label for="nota">Algo que quieras que tengamos en cuenta <span style="opacity:.6;font-size:10px;">(opcional)</span></label>
+        <textarea id="nota" name="nota" placeholder="Alergias adicionales, mensaje especial…"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit" id="btn-submit">Confirmar asistencia</button>
+
+    </form>
+
+    <!-- Success -->
+    <div class="success-view" id="success-view">
+      <div class="check">🤍</div>
+      <h2 id="success-heading">¡Gracias!</h2>
+      <p id="success-msg">Tu respuesta fue registrada. ¡Nos vemos pronto!</p>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <strong>Ceremonia</strong> · 17:00 hs · Parroquia San Gabriel<br>
+    Gaspar Campos 759, Vicente López<br><br>
+    <strong>Fiesta</strong> · 19:00 hs · Yacht Club Olivos<br>
+    Juan Bautista Alberdi 415, Olivos
+  </div>
+
+</div>
+
+<script>
+  // ── Reemplazá esta URL con la de tu Web App de Google Apps Script ──
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwjAf0FrdboJ7gBO07yzQWDktx06FneMQH6JcROeyk_wVrVM4f9U3BBnXX4mJmlaezOjQ/exec';
+
+  const form = document.getElementById('rsvp-form');
+  const menuSection = document.getElementById('menu-section');
+  const otroText = document.getElementById('otro-text');
+  const btnSubmit = document.getElementById('btn-submit');
+  const successView = document.getElementById('success-view');
+
+  // Show/hide menu section based on attendance
+  document.querySelectorAll('input[name="asistencia"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const attending = radio.value === 'Si';
+      menuSection.style.display = attending ? 'block' : 'none';
+      if (!attending) {
+        document.querySelectorAll('input[name="menu"]').forEach(r => r.checked = false);
+        otroText.style.display = 'none';
+        otroText.value = '';
+      }
+    });
+  });
+
+  // Show/hide "otro" text input
+  document.querySelectorAll('input[name="menu"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      otroText.style.display = radio.value === 'Otro' ? 'block' : 'none';
+    });
+  });
+
+  function setFieldError(fieldId, hasError) {
+    const el = document.getElementById(fieldId);
+    if (!el) return;
+    el.classList.toggle('has-error', hasError);
+  }
+
+  function validate() {
+    let valid = true;
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const apellido = document.getElementById('apellido').value.trim();
+    const asistencia = document.querySelector('input[name="asistencia"]:checked');
+    const menu = document.querySelector('input[name="menu"]:checked');
+    const attending = asistencia?.value === 'Si';
+
+    setFieldError('f-nombre', !nombre);
+    setFieldError('f-apellido', !apellido);
+    document.getElementById('err-asistencia').style.display = asistencia ? 'none' : 'block';
+
+    if (!nombre || !apellido || !asistencia) valid = false;
+
+    if (attending) {
+      const menuMissing = !menu;
+      setFieldError('f-menu', menuMissing);
+      document.getElementById('err-menu').style.display = menuMissing ? 'block' : 'none';
+      if (menuMissing) valid = false;
+    }
+
+    return valid;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const asistencia = document.querySelector('input[name="asistencia"]:checked').value;
+    const menuEl = document.querySelector('input[name="menu"]:checked');
+    let menuVal = '';
+    if (menuEl) {
+      menuVal = menuEl.value === 'Otro'
+        ? (otroText.value.trim() || 'Otro')
+        : menuEl.value;
+    }
+
+    const data = {
+      nombre: document.getElementById('nombre').value.trim(),
+      apellido: document.getElementById('apellido').value.trim(),
+      asistencia,
+      menu: menuVal,
+      nota: document.getElementById('nota').value.trim(),
+    };
+
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Enviando…';
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      form.style.display = 'none';
+      successView.style.display = 'block';
+
+      if (asistencia === 'Si') {
+        document.getElementById('success-heading').textContent = '¡Qué alegría!';
+        document.getElementById('success-msg').textContent =
+          `¡Gracias, ${data.nombre}! Ya anotamos tu confirmación. ` +
+          'No podemos esperar para compartir ese día con vos.';
+      } else {
+        document.getElementById('success-heading').textContent = '¡Gracias por avisarnos!';
+        document.getElementById('success-msg').textContent =
+          `Lamentamos que no puedas estar, ${data.nombre}. ` +
+          'Te estaremos pensando en ese día tan especial.';
+      }
+    } catch (err) {
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = 'Confirmar asistencia';
+      alert('Hubo un error al enviar. Por favor intentá de nuevo o escribinos directamente.');
+    }
+  });
+</script>
+</body>
+</html>
